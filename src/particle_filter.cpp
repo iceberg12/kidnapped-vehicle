@@ -35,8 +35,8 @@ const double INITIAL_WEIGHT = 1.0;
 void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   this->num_particles = NUMBER_OF_PARTICLES;
-  random_device random_device;
-  mt19937 gen(random_device());
+  random_device rdevice;
+  mt19937 gen(rdevice());
   normal_distribution<> particle_x(x, std[0]);
   normal_distribution<> particle_y(y, std[1]);
   normal_distribution<> particle_theta(theta, std[2]);
@@ -71,8 +71,8 @@ void ParticleFilter::prediction(double delta_t, double std[], double velocity, d
     double d = velocity * delta_t;
     double theta = this->particles[i].theta;
 
-    random_device random_device;
-    mt19937 gen(random_device());
+    random_device rdevice;
+    mt19937 gen(rdevice());
     normal_distribution<> noise_x(0.0, std[0]);
     normal_distribution<> noise_y(0.0, std[1]);
     normal_distribution<> noise_theta(0.0, std[2]);
@@ -248,8 +248,8 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
 void ParticleFilter::resample(){
 
   vector<Particle> resampled_particles;
-	random_device random_device;
-  mt19937 gen(random_device());
+	random_device rdevice;
+  mt19937 gen(rdevice());
   discrete_distribution<int> index(this->weights.begin(), this->weights.end());
 
   for (int c = 0; c < NUMBER_OF_PARTICLES; c++) {
