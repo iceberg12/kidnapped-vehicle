@@ -11,6 +11,8 @@ const double INITIAL_WEIGHT = 1.0;
 
 /*
  * NOTE(s):
+ * A  Mersenne Twister pseudo-random generator of 32-bit numbers with a state size of 19937 bits.
+ *   - http://www.cplusplus.com/reference/random/mt19937/
  * GAUSSIAN NOISE
  *   - http://en.cppreference.com/w/cpp/numeric/random/normal_distribution
  *   - http://www.cplusplus.com/reference/random/default_random_engine/
@@ -22,8 +24,6 @@ const double INITIAL_WEIGHT = 1.0;
  *  - http://planning.cs.uiuc.edu/node99.html
  * DISCRETE_DISTRIBUTION
  *  - http://en.cppreference.com/w/cpp/numeric/random/discrete_distribution
- * A  Mersenne Twister pseudo-random generator of 32-bit numbers with a state size of 19937 bits.
- * - http://www.cplusplus.com/reference/random/default_random_engine/
  */
 
 
