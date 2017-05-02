@@ -250,7 +250,7 @@ void ParticleFilter::resample(){
 
   vector<Particle> resampled_particles;
 
-	random_device rdevice;
+  random_device rdevice;
   mt19937 gen(rdevice());
   discrete_distribution<int> index(this->weights.begin(), this->weights.end());
 
@@ -274,7 +274,7 @@ void ParticleFilter::resample(){
 
 
 void ParticleFilter::write(std::string filename) {
-  
+
   // You don't need to modify this file.
   std::ofstream dataFile;
   dataFile.open(filename, std::ios::app);
