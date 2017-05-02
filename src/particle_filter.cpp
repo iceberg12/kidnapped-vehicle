@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int NUMBER_OF_PARTICLES = 300;
+const int NUMBER_OF_PARTICLES = 50;
 const double INITIAL_WEIGHT = 1.0;
 
 /*
@@ -229,12 +229,12 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
       double dx = ox - predicted_x;
       double dy = oy - predicted_y;
 
-      double varx = std_landmark[0];
-      double vary = std_landmark[1];
+      double stdx = std_landmark[0];
+      double stdy = std_landmark[1];
 
-      double a = dx * dx / (2.0 * varx * varx);
-      double b = dy * dy / (2.0 * vary * vary);
-      double d = sqrt( 2.0 * M_PI * varx * vary);
+      double a = dx * dx / (2.0 * stdx * stdx);
+      double b = dy * dy / (2.0 * stdy * stdy);
+      double d = sqrt( 2.0 * M_PI * stdx * stdy);
       double r = exp(-(a + b)) / d;
       w *= r;
     }
