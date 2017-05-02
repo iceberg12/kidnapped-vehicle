@@ -35,11 +35,12 @@ const double INITIAL_WEIGHT = 1.0;
 void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   this->num_particles = NUMBER_OF_PARTICLES;
+
   random_device rdevice;
   mt19937 gen(rdevice());
-  normal_distribution<> particle_x(x, std[0]);
-  normal_distribution<> particle_y(y, std[1]);
-  normal_distribution<> particle_theta(theta, std[2]);
+  normal_distribution<double> particle_x(x, std[0]);
+  normal_distribution<double> particle_y(y, std[1]);
+  normal_distribution<double> particle_theta(theta, std[2]);
 
   for (int i = 0; i < NUMBER_OF_PARTICLES; i++) {
 
@@ -66,16 +67,16 @@ void ParticleFilter::prediction(double delta_t, double std[], double velocity, d
 
   const double THRESH = 0.001;
 
+  random_device rdevice;
+  mt19937 gen(rdevice());
+  normal_distribution<double> noise_x(0.0, std[0]);
+  normal_distribution<double> noise_y(0.0, std[1]);
+  normal_distribution<double> noise_theta(0.0, std[2]);
+
   for (int i = 0;  i < NUMBER_OF_PARTICLES; i++) {
 
     double d = velocity * delta_t;
     double theta = this->particles[i].theta;
-
-    random_device rdevice;
-    mt19937 gen(rdevice());
-    normal_distribution<> noise_x(0.0, std[0]);
-    normal_distribution<> noise_y(0.0, std[1]);
-    normal_distribution<> noise_theta(0.0, std[2]);
 
     if (fabs(yaw_rate) < THRESH) { //moving straight
 
@@ -248,6 +249,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
 void ParticleFilter::resample(){
 
   vector<Particle> resampled_particles;
+
 	random_device rdevice;
   mt19937 gen(rdevice());
   discrete_distribution<int> index(this->weights.begin(), this->weights.end());
@@ -272,11 +274,12 @@ void ParticleFilter::resample(){
 
 
 void ParticleFilter::write(std::string filename) {
+  
   // You don't need to modify this file.
   std::ofstream dataFile;
   dataFile.open(filename, std::ios::app);
 
-  for (int i = 0; i < this->num_particles; ++i) {
+  for (int i = 0; i < NUMBER_OF_PARTICLES; ++i) {
     dataFile << this->particles[i].x << " " << this->particles[i].y << " " << this->particles[i].theta << "\n";
   }
 
