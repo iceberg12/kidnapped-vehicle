@@ -137,8 +137,8 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
  * For each particle:
  *   1. transform observations from vehicle to map coordinates assuming it's the particle observing
  *   2. find landmarks within the particle's range
- *   3. find which landmark is likely being observed based on nearest neighbor method
- *   4. determine the weights based difference particle's observation and actual observation
+ *   3. find which landmark is likely being observed based on `nearest neighbor` method
+ *   4. determine the weights based on the difference particle's observation and actual observation
  ***************************************************************/
 void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], std::vector<LandmarkObs> observations, Map map_landmarks) {
 
