@@ -36,8 +36,9 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   this->num_particles = NUMBER_OF_PARTICLES;
 
-  random_device rdevice;
-  mt19937 gen(rdevice());
+  //random_device rdevice;
+  //mt19937 gen(rdevice());
+  default_random_engine gen;
   normal_distribution<double> particle_x(x, std[0]);
   normal_distribution<double> particle_y(y, std[1]);
   normal_distribution<double> particle_theta(theta, std[2]);
@@ -67,8 +68,9 @@ void ParticleFilter::prediction(double delta_t, double std[], double velocity, d
 
   const double THRESH = 0.001;
 
-  random_device rdevice;
-  mt19937 gen(rdevice());
+  //random_device rdevice;
+  //mt19937 gen(rdevice());
+  default_random_engine gen;
   normal_distribution<double> noise_x(0.0, std[0]);
   normal_distribution<double> noise_y(0.0, std[1]);
   normal_distribution<double> noise_theta(0.0, std[2]);
@@ -250,8 +252,9 @@ void ParticleFilter::resample(){
 
   vector<Particle> resampled_particles;
 
-  random_device rdevice;
-  mt19937 gen(rdevice());
+  //random_device rdevice;
+  //mt19937 gen(rdevice());
+  default_random_engine gen;
   discrete_distribution<int> index(this->weights.begin(), this->weights.end());
 
   for (int c = 0; c < NUMBER_OF_PARTICLES; c++) {
