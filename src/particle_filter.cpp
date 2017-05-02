@@ -35,9 +35,8 @@ const double INITIAL_WEIGHT = 1.0;
 void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   this->num_particles = NUMBER_OF_PARTICLES;
-
-	random_device random_device;
-	mt19937 gen(random_device());
+  random_device random_device;
+  mt19937 gen(random_device());
   normal_distribution<> particle_x(x, std[0]);
   normal_distribution<> particle_y(y, std[1]);
   normal_distribution<> particle_theta(theta, std[2]);
@@ -58,6 +57,7 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   this->is_initialized = true;
 }
+
 
 /***************************************************************
  *  Add measurements to each particle and add random Gaussian noise.
@@ -96,6 +96,7 @@ void ParticleFilter::prediction(double delta_t, double std[], double velocity, d
   }
 }
 
+
 /**************************************************************
  * Find the predicted measurement that is closest to each observed measurement
  * and assign the observed measurement to this particular landmark.
@@ -125,6 +126,7 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
   }
 }
 
+
 /***************************************************************
  *  Update the weights of each particle using a mult-variate Gaussian distribution.
  *  NOTE: The observations are given in the VEHICLE'S coordinate system. Particles are located
@@ -136,7 +138,6 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
  *   4. determine the weights based difference particle's observation and actual observation
  ***************************************************************/
 void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], std::vector<LandmarkObs> observations, Map map_landmarks) {
-
 
   for (int  i = 0; i < NUMBER_OF_PARTICLES; i++) {
 
@@ -171,9 +172,9 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
     }
 
    /**************************************************************
-		* STEP 2:
-		* Find map landmarks within the sensor range
-		**************************************************************/
+    * STEP 2:
+    * Find map landmarks within the sensor range
+    **************************************************************/
     for (int j = 0;  j < map_landmarks.landmark_list.size(); j++) {
 
       int mid = map_landmarks.landmark_list[j].id_i;
@@ -196,13 +197,13 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
       }
     }
 
-    /**************************************************************
- 		* STEP 3:
- 		* Associate landmark in range (id) to landmark observations
- 		* this function modifies std::vector<LandmarkObs> observations
- 		* NOTE: - all landmarks are in map coordinates
- 		*       - all observations are in map coordinates
- 		**************************************************************/
+  /**************************************************************
+   * STEP 3:
+   * Associate landmark in range (id) to landmark observations
+   * this function modifies std::vector<LandmarkObs> observations
+   * NOTE: - all landmarks are in map coordinates
+   *       - all observations are in map coordinates
+   **************************************************************/
     dataAssociation(landmarks_in_range, map_observations);
 
    /**************************************************************
@@ -240,6 +241,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
   }
 }
 
+
 /**************************************************************
  * Resample particles with replacement with probability proportional to their weight.
  ***************************************************************/
@@ -267,6 +269,7 @@ void ParticleFilter::resample(){
 
   this->particles = resampled_particles;
 }
+
 
 void ParticleFilter::write(std::string filename) {
 	// You don't need to modify this file.
