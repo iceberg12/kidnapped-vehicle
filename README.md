@@ -6,6 +6,7 @@ My robot has been kidnapped and transported to a new location! Luckily it has a 
 In this project I have implemented a 2 dimensional particle filter in C++. The particle filter is given a map and some initial localization information (analogous to what a GPS would provide). At each time step the filter will also get observation and control data.
 
 - https://github.com/udacity/CarND-Kidnapped-Vehicle-Project
+- http://robots.stanford.edu/papers/thrun.pf-in-robotics-uai02.pdf
 
 ## Running the Code
 ```
@@ -46,7 +47,7 @@ root
 ## Inputs to the Particle Filter
 You can find the inputs to the particle filter in the `data` directory.
 
-#### The Map 
+#### The Map
 `map_data.txt` includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
 1. x position
 2. y position
