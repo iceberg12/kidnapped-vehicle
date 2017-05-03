@@ -119,10 +119,10 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
 
     for (int j = 0; j < observations.size(); j++) {
 
-      double dx = predicted[j].x - observations[i].x;
+      const double dx = predicted[j].x - observations[i].x;
       double dy = predicted[j].y - observations[i].y;
 
-      double error = dx * dx + dy * dy;
+      const double error = dx * dx + dy * dy;
 
       if (error < current_smallest_error) {
         current_j = j;
@@ -155,9 +155,9 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
 
   for (int  i = 0; i < NUMBER_OF_PARTICLES; i++) {
 
-    double px = this->particles[i].x;
-    double py = this->particles[i].y;
-    double ptheta = this->particles[i].theta;
+    const double px = this->particles[i].x;
+    const double py = this->particles[i].y;
+    const double ptheta = this->particles[i].theta;
 
     vector<LandmarkObs> landmarks_in_range;
     vector<LandmarkObs> map_observations;
@@ -169,12 +169,12 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
     **************************************************************/
     for (int j = 0; j < observations.size(); j++){
 
-      int oid = observations[j].id;
-      double ox = observations[j].x;
-      double oy = observations[j].y;
+      const int oid = observations[j].id;
+      const double ox = observations[j].x;
+      const double oy = observations[j].y;
 
-      double transformed_x = px + ox * cos(ptheta) - oy * sin(ptheta);
-      double transformed_y = py + oy * cos(ptheta) + ox * sin(ptheta);
+      const double transformed_x = px + ox * cos(ptheta) - oy * sin(ptheta);
+      const double transformed_y = py + oy * cos(ptheta) + ox * sin(ptheta);
 
       LandmarkObs observation = {
         oid,
@@ -191,13 +191,13 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
     **************************************************************/
     for (int j = 0;  j < map_landmarks.landmark_list.size(); j++) {
 
-      int mid = map_landmarks.landmark_list[j].id_i;
-      double mx = map_landmarks.landmark_list[j].x_f;
-      double my = map_landmarks.landmark_list[j].y_f;
+      const int mid = map_landmarks.landmark_list[j].id_i;
+      const double mx = map_landmarks.landmark_list[j].x_f;
+      const double my = map_landmarks.landmark_list[j].y_f;
 
-      double dx = mx - px;
-      double dy = my - py;
-      double error = sqrt(dx * dx + dy * dy);
+      const double dx = mx - px;
+      const double dy = my - py;
+      const double error = sqrt(dx * dx + dy * dy);
 
       if (error < sensor_range) {
 
@@ -230,19 +230,19 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
 
     for (int j = 0; j < map_observations.size(); j++){
 
-      int oid = map_observations[j].id;
-      double ox = map_observations[j].x;
-      double oy = map_observations[j].y;
+      const int oid = map_observations[j].id;
+      const double ox = map_observations[j].x;
+      const double oy = map_observations[j].y;
 
-      double predicted_x = landmarks_in_range[oid].x;
-      double predicted_y = landmarks_in_range[oid].y;
+      const double predicted_x = landmarks_in_range[oid].x;
+      const double predicted_y = landmarks_in_range[oid].y;
 
-      double dx = ox - predicted_x;
-      double dy = oy - predicted_y;
+      const double dx = ox - predicted_x;
+      const double dy = oy - predicted_y;
 
-      double a = na * dx * dx;
-      double b = nb * dy * dy;
-      double r = exp(-(a + b)) / d;
+      const double a = na * dx * dx;
+      const double b = nb * dy * dy;
+      const double r = exp(-(a + b)) / d;
       w *= r;
     }
 
@@ -266,7 +266,7 @@ void ParticleFilter::resample(){
 
   for (int c = 0; c < NUMBER_OF_PARTICLES; c++) {
 
-    int i = index(gen);
+    const int i = index(gen);
 
     Particle p {
       i,
