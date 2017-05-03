@@ -1,3 +1,11 @@
+/*
+ *
+ * Written by:
+ *  Mithi Sevilla http://github.com/mithi/
+ *  May 4, 2017
+ *
+ */
+
 #include <random>
 #include <algorithm>
 #include <iostream>
