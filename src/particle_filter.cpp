@@ -232,8 +232,8 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
       double stdx = std_landmark[0];
       double stdy = std_landmark[1];
 
-      double a = dx * dx / (2.0 * stdx * stdx);
-      double b = dy * dy / (2.0 * stdy * stdy);
+      double a = 0.5 * dx * dx / (stdx * stdx);
+      double b = 0.5 * dy * dy / (stdy * stdy);
       double d = sqrt( 2.0 * M_PI * stdx * stdy);
       double r = exp(-(a + b)) / d;
       w *= r;
