@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int NUMBER_OF_PARTICLES = 50;
+const int NUMBER_OF_PARTICLES = 300; //50
 const double INITIAL_WEIGHT = 1.0;
 
 /*
@@ -142,6 +142,13 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
  ***************************************************************/
 void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], std::vector<LandmarkObs> observations, Map map_landmarks) {
 
+  // constants used later for calculating the new weights
+  const double stdx = std_landmark[0];
+  const double stdy = std_landmark[1];
+  const double na = 0.5 / (stdx * stdx);
+  const double nb = 0.5 / (stdy * stdy);
+  const double d = sqrt( 2.0 * M_PI * stdx * stdy);
+
   for (int  i = 0; i < NUMBER_OF_PARTICLES; i++) {
 
     double px = this->particles[i].x;
@@ -229,12 +236,8 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
       double dx = ox - predicted_x;
       double dy = oy - predicted_y;
 
-      double stdx = std_landmark[0];
-      double stdy = std_landmark[1];
-
-      double a = 0.5 * dx * dx / (stdx * stdx);
-      double b = 0.5 * dy * dy / (stdy * stdy);
-      double d = sqrt( 2.0 * M_PI * stdx * stdy);
+      double a = na * dx * dx;
+      double b = nb * dy * dy;
       double r = exp(-(a + b)) / d;
       w *= r;
     }
