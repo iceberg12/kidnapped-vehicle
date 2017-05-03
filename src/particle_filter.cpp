@@ -207,7 +207,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[], s
    * NOTE: - all landmarks are in map coordinates
    *       - all observations are in map coordinates
    **************************************************************/
-    dataAssociation(landmarks_in_range, map_observations);
+   this->dataAssociation(landmarks_in_range, map_observations);
 
    /**************************************************************
     * STEP 4:
