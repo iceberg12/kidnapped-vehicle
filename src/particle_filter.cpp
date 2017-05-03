@@ -67,34 +67,38 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 void ParticleFilter::prediction(double delta_t, double std[], double velocity, double yaw_rate) {
 
   const double THRESH = 0.001;
+  const bool MOVING_STRAIGHT = fabs(yaw_rate) < THRESH;
+  const double k = MOVING_STRAIGHT ? velocity * delta_t : velocity / yaw_rate;
+  const double delta_theta = yaw_rate * delta_t;
 
   //random_device rdevice;
   //mt19937 gen(rdevice());
   default_random_engine gen;
-  normal_distribution<double> noise_x(0.0, std[0]);
-  normal_distribution<double> noise_y(0.0, std[1]);
-  normal_distribution<double> noise_theta(0.0, std[2]);
+  normal_distribution<double> nx(0.0, std[0]);
+  normal_distribution<double> ny(0.0, std[1]);
+  normal_distribution<double> ntheta(0.0, std[2]);
 
   for (int i = 0;  i < NUMBER_OF_PARTICLES; i++) {
 
-    double d = velocity * delta_t;
-    double theta = this->particles[i].theta;
+    const double theta = this->particles[i].theta;
+    const double sin_theta = sin(theta);
+    const double cos_theta = cos(theta);
+    const double noise_x = nx(gen);
+    const double noise_y = ny(gen);
+    const double noise_theta = ntheta(gen);
 
-    if (fabs(yaw_rate) < THRESH) { //moving straight
+    if (MOVING_STRAIGHT) {
 
-      this->particles[i].x += d * cos(theta) + noise_x(gen);
-      this->particles[i].y += d * sin(theta) + noise_y(gen);
-      this->particles[i].theta += noise_theta(gen);
+      this->particles[i].x += k * cos_theta + noise_x;
+      this->particles[i].y += k * sin_theta + noise_y;
+      this->particles[i].theta += noise_theta;
 
     } else {
 
-      double delta_theta = yaw_rate * delta_t;
-      double phi = theta + delta_theta;
-      double k = velocity / yaw_rate;
-
-      this->particles[i].x += k * (sin(phi) - sin(theta)) + noise_x(gen);
-      this->particles[i].y += k * (cos(theta) - cos(phi)) + noise_y(gen);
-      this->particles[i].theta = phi + noise_theta(gen);
+      const double phi = theta + delta_theta;
+      this->particles[i].x += k * (sin(phi) - sin_theta) + noise_x;
+      this->particles[i].y += k * (cos_theta - cos(phi)) + noise_y;
+      this->particles[i].theta = phi + noise_theta;
     }
   }
 }
