@@ -7,7 +7,7 @@ In this project I have implemented a 2 dimensional particle filter in C++. The p
 - http://robots.stanford.edu/papers/thrun.pf-in-robotics-uai02.pdf
 
 For this project, only [this source file](https://github.com/mithi/kidnapped-vehicle/blob/master/src/particle_filter.cpp) has been written, the rest including the data [has been provided by Udacity which are clone from the following repository:
-- https://github.com/udacity/CarND-Kidnapped-Vehicle-Project)
+- https://github.com/udacity/CarND-Kidnapped-Vehicle-Project
 
 ## Running the Code
 ```
