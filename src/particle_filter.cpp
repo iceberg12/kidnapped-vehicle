@@ -14,7 +14,7 @@
 
 using namespace std;
 
-const int NUMBER_OF_PARTICLES = 300; //50
+const int NUMBER_OF_PARTICLES = 50; //300
 const double INITIAL_WEIGHT = 1.0;
 
 /*
@@ -125,7 +125,7 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
     int current_j;
     double current_smallest_error = BIG_NUMBER;
 
-    for (int j = 0; j < observations.size(); j++) {
+    for (int j = 0; j < predicted.size(); j++) {
 
       const double dx = predicted[j].x - observations[i].x;
       double dy = predicted[j].y - observations[i].y;
