@@ -28,7 +28,6 @@ const double INITIAL_WEIGHT = 1.0;
  *   - https://en.wikipedia.org/wiki/Multivariate_normal_distribution
  * TRANSFORMING FROM MAP TO VEHICLE COORDINATE
  *  - https://www.willamette.edu/~gorr/classes/GeneralGraphics/Transforms/transforms2d.htm
- * The map's y-axis actually points downwards.
  *  - http://planning.cs.uiuc.edu/node99.html
  * DISCRETE_DISTRIBUTION
  *  - http://en.cppreference.com/w/cpp/numeric/random/discrete_distribution
