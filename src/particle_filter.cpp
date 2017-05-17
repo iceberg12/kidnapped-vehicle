@@ -127,8 +127,7 @@ void ParticleFilter::dataAssociation(vector<LandmarkObs> predicted, vector<Landm
     for (int j = 0; j < predicted.size(); j++) {
 
       const double dx = predicted[j].x - observations[i].x;
-      double dy = predicted[j].y - observations[i].y;
-
+      const double dy = predicted[j].y - observations[i].y;
       const double error = dx * dx + dy * dy;
 
       if (error < current_smallest_error) {
